@@ -1,12 +1,12 @@
 package com.example.babble.Models;
 
 public class Users {
-    String profilePic,userName,mail,password,userId,lastMessage,status;
+    String profilePic,userName,mail,password,userId,lastMessage,status,contact;
     public Users(){
 
     }
 
-    public Users(String profilePic,String userName, String mail,String password,String userId,String lastMessage,String status) {
+    public Users(String profilePic,String userName, String mail,String password,String userId,String lastMessage,String status,String contact) {
         this.profilePic = profilePic;
         this.userName=userName;
         this.lastMessage=lastMessage;
@@ -14,6 +14,7 @@ public class Users {
         this.password=password;
         this.status=status;
         this.userId=userId;
+        this.contact=contact;
     }
     public Users(String userName,String mail,String password){
         this.userName=userName;
@@ -68,9 +69,15 @@ public class Users {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+    public String getContact() {
+        return contact;
+    }
 
     public String getLastMessage() {
         return lastMessage;
+    }
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public void setLastMessage(String lastMessage) {

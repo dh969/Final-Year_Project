@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity"
+    tools:context=".AboutActivity"
     android:background="@drawable/w1">
 
     <ImageView
@@ -37,15 +37,7 @@
             android:src="@drawable/avatar"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/plus"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="-25dp"
 
-            app:srcCompat="@drawable/plus"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,12 +51,11 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtUsername"
-                android:hint="Enter Your name"
-                android:inputType="textPersonName"
+
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"/>
 
@@ -84,45 +75,18 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etStatus"
-                android:hint="About"
-                android:inputType="textPersonName"
+
                 android:textColor="@color/white"
                 android:textColorHint="@color/design_default_color_on_primary"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text= "Profanity Filter: "
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/toggleProf"/>
-    </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/btn_bg"
-            android:paddingBottom="5dp"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/saveButton"/>
+
+
     </LinearLayout>
 
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.babble.Models.Users;
 import com.example.babble.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +52,9 @@ public class SignUpActivity extends AppCompatActivity {
                                       String id=task.getResult().getUser().getUid();
                                       database.getReference().child("Users").child(id).setValue(user);
                                       Toast.makeText(SignUpActivity.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
+                                      Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                                      startActivity(intent);
+                                      finish();
                                   }
                                   else{
                                       Toast.makeText(SignUpActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();

@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.babble.Models.Users;
@@ -33,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
+    ;String toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,23 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getSupportActionBar().hide();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Save the status of the Switch widget in shared preferences
+
+
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();

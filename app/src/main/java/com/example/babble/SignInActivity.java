@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -29,11 +30,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity {
-ActivitySignInBinding binding;
-ProgressDialog progressDialog;
-FirebaseDatabase firebaseDatabase;
-FirebaseAuth mAuth;
-GoogleSignInClient mGoogleSignInClient;
+    ActivitySignInBinding binding;
+    ProgressDialog progressDialog;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseAuth mAuth;
+    GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,55 +43,55 @@ GoogleSignInClient mGoogleSignInClient;
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
         mAuth=FirebaseAuth.getInstance();
-       firebaseDatabase=FirebaseDatabase.getInstance();
-    progressDialog= new ProgressDialog(SignInActivity.this);
-    progressDialog.setTitle("Login");
-    progressDialog.setMessage("Please wait");
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        progressDialog= new ProgressDialog(SignInActivity.this);
+        progressDialog.setTitle("Login");
+        progressDialog.setMessage("Please wait");
         GoogleSignInOptions gso = new GoogleSignInOptions. Builder (GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken (getString(R.string.default_web_client_id))
                 .requestEmail().build();
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
-    binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if(!binding.txtEmail.getText().toString().isEmpty()&&!binding.txtPassword.getText().toString().isEmpty())
-            { progressDialog.show();
-            mAuth.signInWithEmailAndPassword(binding.txtEmail.getText().toString(),binding.txtPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    progressDialog.dismiss();
-                    if(task.isSuccessful()){
-                        Intent intent=new Intent(SignInActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(SignInActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                    }
+        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!binding.txtEmail.getText().toString().isEmpty()&&!binding.txtPassword.getText().toString().isEmpty())
+                { progressDialog.show();
+                    mAuth.signInWithEmailAndPassword(binding.txtEmail.getText().toString(),binding.txtPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
+                            if(task.isSuccessful()){
+                                Intent intent=new Intent(SignInActivity.this,MainActivity.class);
+                                startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(SignInActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
-            });
+                else {
+                    Toast.makeText(SignInActivity.this, "Enter Credentials", Toast.LENGTH_SHORT).show();
+                }
             }
-            else {
-                Toast.makeText(SignInActivity.this, "Enter Credentials", Toast.LENGTH_SHORT).show();
-            }
-        }
-    });
-    if(mAuth.getCurrentUser()!=null){
-        Intent intent=new Intent(SignInActivity.this,MainActivity.class);
-        startActivity(intent);
-    }
-    binding.txtClickSignUp.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent=new Intent(SignInActivity.this,SignUpActivity.class);
+        });
+        if(mAuth.getCurrentUser()!=null){
+            Intent intent=new Intent(SignInActivity.this,MainActivity.class);
             startActivity(intent);
         }
-    });
-    binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            signIn();
-        }
-    });
+        binding.txtClickSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(SignInActivity.this,SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
     }
     int RC_SIGN_IN=65;
     private void signIn() { Intent signInIntent = mGoogleSignInClient.getSignInIntent(); startActivityForResult(signInIntent, RC_SIGN_IN); }
@@ -102,8 +103,8 @@ GoogleSignInClient mGoogleSignInClient;
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
 // Google Sign In was successful, authenticate with Firebase
- GoogleSignInAccount account = task.getResult(ApiException.class);
- Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
 // Google Sign In failed, update UI appropriately
@@ -138,4 +139,26 @@ Log.w("TAG", "signInWithCredential: failure", task.getException());
                     }
                     });
                 }
+    private boolean doubleBackToExitPressedOnce = false;
+    @Override
+
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            finishAffinity(); // This will close the app
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
+
 }

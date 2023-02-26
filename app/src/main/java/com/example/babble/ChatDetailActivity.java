@@ -2,11 +2,17 @@ package com.example.babble;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.babble.Adapter.ChatAdapter;
 import com.example.babble.Models.MessageModel;
@@ -38,6 +44,22 @@ public class ChatDetailActivity extends AppCompatActivity {
         String receiveId=getIntent().getStringExtra("userId");
         String userName=getIntent().getStringExtra("userName");
         String profilePic=getIntent().getStringExtra("profilePic");
+        binding.userName.setText(userName);
+    binding.userName.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent34=new Intent(ChatDetailActivity.this,AboutActivity.class);
+            intent34.putExtra("chatPartnerId", receiveId);
+            startActivity(intent34);
+        }
+    });
+
+
+
+
+
+
+
         binding.userName.setText(userName);
         Picasso.get().load(profilePic).placeholder(R.drawable.avatar).into(binding.profileImage);
         binding.backArrow.setOnClickListener(new View.OnClickListener() {

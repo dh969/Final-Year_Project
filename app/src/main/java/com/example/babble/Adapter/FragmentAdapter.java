@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.babble.Fragments.CallsFragment;
 import com.example.babble.Fragments.ChatsFragment;
 import com.example.babble.Fragments.StatusFragment;
+import com.example.babble.GroupChatActivity;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
     public FragmentAdapter(@NonNull FragmentManager fm){super(fm);}
